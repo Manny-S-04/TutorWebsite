@@ -1,0 +1,39 @@
+{{define "header"}}
+
+
+<div class="marginheader newwidth flex flex-row justify-between items-center p-4 relative">
+    <button id="menu-button" class="md:hidden order-1 flex items-center px-3 py-2 border rounded text-gray-700 border-gray-700">
+        <svg class="fill-current h-5 w-28" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <title>Menu</title>
+            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
+        </svg>
+    </button>
+
+    <a href="/" class="flex-shrink-0 w-20 order-2 md:order-1">
+        <img src="/static/images/logo.png"/>
+    </a>
+
+    <div class="absolute left-1/2 transform -translate-x-1/2 flex space-x-4 order-3 hidden md:flex">
+        <a href="/" class="middlebutton">Maths</a>
+        <a href="/" class="middlebutton">Physics</a>
+        <a href="/" class="middlebutton">Computer Science</a>
+        <a href="/" class="middlebutton">Polish</a>
+    </div>
+
+    <a href="/" class="contactbutton order-4 flex-shrink-0 w-28 lg:w-36 hidden md:block">
+        <p class="text-lg">
+            Contact Us
+        </p>
+    </a>
+</div>
+
+<div id="menu" class="hidden md:hidden flex flex-col items-center justify-center w-full space-y-4 mt-4">
+    <a href="/" class="middlebutton">Maths</a>
+    <a href="/" class="middlebutton">Physics</a>
+    <a href="/" class="middlebutton">Computer Science</a>
+    <a href="/" class="middlebutton">Polish</a>
+</div>
+
+
+
+{{end}}

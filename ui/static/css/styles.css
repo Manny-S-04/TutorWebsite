@@ -1,0 +1,119 @@
+:root {
+  --primary: #eeefe3;
+  --secondary: #051c24;
+  --tertiary: #79c95c;
+  --quaternary: #2f4850;
+  --quinary: #596f74;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+    background: var(--primary);
+}
+
+.marginheader {
+  margin: 10px;
+  border-radius: 12px;
+  height: 10vh;
+    background: var(--primary);
+}
+
+.footer {
+  margin: 10px;
+  height: 8vh;
+}
+
+.newwidth {
+  width: 95vw;
+}
+
+.card {
+  border-radius: 12px;
+  margin: 10px;
+  padding: 10px;
+  background-color: var(--quaternary);
+  color: white;
+}
+
+.card > section {
+  font-size: 20px;
+  line-height: 1.6;
+    padding: 20px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/*middle button*/
+.middlebutton {
+  font-size: 18px;
+  color: var(--quaternary);
+  font-family: inherit;
+  font-weight: 800;
+  letter-spacing: 1px;
+  cursor: pointer;
+  position: relative;
+  border: none;
+  background: none;
+  text-transform: uppercase;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-duration: 400ms;
+  transition-property: color;
+}
+
+.middlebutton:focus,
+.middlebutton:hover {
+  color: var(--tertiary);
+}
+
+.middlebutton:focus:after,
+.middlebutton:hover:after {
+  width: 100%;
+  left: 0%;
+}
+
+.middlebutton:after {
+  content: "";
+  pointer-events: none;
+  bottom: -2px;
+  left: 50%;
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  background-color: var(--tertiary);
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-duration: 400ms;
+  transition-property: width, left;
+}
+
+/*contact button*/
+.contactbutton {
+  position: relative;
+  display: inline-block;
+  margin: 8px;
+  padding: 0.3rem 1.2rem;
+  text-align: center;
+  font-size: 18px;
+    font-weight: 600;
+  letter-spacing: 1px;
+  text-decoration: none;
+  color: var(--secondary);
+  background: transparent;
+  cursor: pointer;
+  transition: ease-out 0.5s;
+  border: 2px solid var(--secondary);
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 0 var(--primary);
+}
+
+.contactbutton:hover {
+  color: var(--quarternary);
+  box-shadow: inset 0 -100px 0 0 var(--tertiary);
+}
+
+.contactbutton:active {
+  transform: scale(0.9);
+}
+
