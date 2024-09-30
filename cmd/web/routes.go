@@ -13,8 +13,8 @@ func (app *application) routes() http.Handler{
 
     // assign functions to routes here
     mux := pat.New()
-    mux.Get("/", http.HandlerFunc(app.home)
-    mux.Get("/maths", http.HandlerFunc()
+    mux.Get("/", http.HandlerFunc(app.home))
+    mux.Get("/services", http.HandlerFunc(app.services))
 
  
     fileServer := http.FileServer(http.Dir("./ui/static/"))

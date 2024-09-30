@@ -645,6 +645,10 @@ video {
   width: 100%;
 }
 
+.w-screen {
+  width: 100vw;
+}
+
 .max-w-96 {
   max-width: 24rem;
 }
@@ -715,6 +719,10 @@ video {
   fill: currentColor;
 }
 
+.p-16 {
+  padding: 4rem;
+}
+
 .p-2 {
   padding: 0.5rem;
 }
@@ -738,9 +746,9 @@ video {
   line-height: 2rem;
 }
 
-.text-lg {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
 }
 
 .text-xl {
@@ -760,11 +768,6 @@ video {
 @media (min-width: 768px) {
   .md\:order-1 {
     order: 1;
-  }
-
-  .md\:mx-4 {
-    margin-left: 1rem;
-    margin-right: 1rem;
   }
 
   .md\:block {
@@ -823,10 +826,6 @@ video {
     width: 24rem;
   }
 
-  .xl\:gap-14 {
-    gap: 3.5rem;
-  }
-
   .xl\:gap-48 {
     gap: 12rem;
   }
@@ -835,9 +834,5 @@ video {
 @media (min-width: 1536px) {
   .\32xl\:w-96 {
     width: 24rem;
-  }
-
-  .\32xl\:gap-24 {
-    gap: 6rem;
   }
 }

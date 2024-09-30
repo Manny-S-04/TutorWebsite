@@ -92,8 +92,8 @@ body {
 .contactbutton {
   position: relative;
   display: inline-block;
-  margin: 8px;
-  padding: 0.3rem 1.2rem;
+  margin: 0px;
+    padding: 0.3rem 1.4rem;
   text-align: center;
   font-size: 18px;
     font-weight: 600;
@@ -109,11 +109,27 @@ body {
 }
 
 .contactbutton:hover {
-  color: var(--quarternary);
+  color: var(--quaternary);
   box-shadow: inset 0 -100px 0 0 var(--tertiary);
 }
 
 .contactbutton:active {
   transform: scale(0.9);
 }
+
+/*divCard*/
+.cardsection {
+    padding:20px;
+    background: var(--quaternary);
+    color:white;
+}
+
+.cardsectionAlt{
+    background: var(--primary);
+}
+
+.cardheight{
+    height: 25vh;
+}
+
 
