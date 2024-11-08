@@ -1,0 +1,36 @@
+{{template "base" .}}
+
+{{define "title"}} Contact Us {{end}}
+
+{{define "body"}}
+
+<div class="flex flex-row w-screen justify-center cardsectionAlt p-16 my-4">
+	<h1 class="flex flex-row justify-center text-6xl font-bold">Contact Us</h1>
+</div>
+
+<div
+	class="flex flex-col h-fit p-16 items-center justify-content cardsection w-screen">
+    <form class="flex-col justify-center items-center custom-form w-8/12" style="display:flex;" action='/contactus' method='POST'>
+        <h1 class="text-2xl">Request a callback:</h1>
+        <div class="my-2 w-10/12">
+            {{with .FormErrors.name}}
+                <label class="error-label">{{.}}</label><br/>
+            {{end}}
+            <label for="name">Name:</label>
+            <input type="text" name="name" value='{{.FormData.Get "name"}}'>
+        </div>
+        <div class="my-2 w-10/12">
+            {{with .FormErrors.message}}
+                <label class="error-label">{{.}}</label><br/>
+            {{end}}
+            <label for="review-content">Message:</label>
+            <textarea class="h-40" name="review-content">{{.FormData.Get "message"}}</textarea>
+        </div>
+        <div class="flex justify-center items-center">
+            <button class="submit-button" type="submit" name="submit">Send Message</button>
+        </div>
+    </form>
+</div>
+
+
+{{end}}

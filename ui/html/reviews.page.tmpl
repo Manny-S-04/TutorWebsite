@@ -1,0 +1,75 @@
+{{template "base" .}}
+
+{{define "title"}} Reviews {{ end }}
+
+{{define "body"}}
+
+<div class="flex flex-row w-screen justify-center cardsectionAlt p-16 my-4">
+	<h1 class="flex flex-row justify-center text-6xl font-bold">Reviews</h1>
+</div>
+
+<div class="flex flex-col w-screen justify-center cardsection p-16 my-4">
+	{{ range.Reviews }}
+	<div class="flex flex-col justify-center my-2">
+		<div class="mx-32">
+			{{ if eq .Stars "1" }}
+			<div class="text-xl">★☆☆☆☆</div>
+			{{ else }}{{ end }} {{ if eq .Stars "2" }}
+			<div class="text-xl">★★☆☆☆</div>
+			{{ else }}{{ end }} {{ if eq .Stars "3" }}
+			<div class="text-xl">★★★☆☆</div>
+			{{ else }}{{ end }} {{ if eq .Stars "4" }}
+			<div class="text-xl">★★★★☆</div>
+			{{ else }}{{ end }} {{ if eq .Stars "5" }}
+			<div class="text-xl">★★★★★</div>
+			{{ else }}{{ end }}
+			<div class="text-2xl my-2">{{.Name}}</div>
+			<div class="text-xl my-2 my-4">{{.Content}}</div>
+			<hr />
+		</div>
+	</div>
+	{{ end }}
+</div>
+<div class="flex-col justify-center items-center w-4/6 ">
+    <form class="flex-col justify-center items-center custom-form" style="display:flex;" action='/reviews/create' method='POST'>
+        <h1 class="text-2xl">Submit a review:</h1>
+        <div class="my-2 w-10/12">
+            {{with .FormErrors.name}}
+                <label class="error-label">{{.}}</label><br/>
+            {{end}}
+            <label for="name">Name:</label>
+            <input type="text" name="name" value='{{.FormData.Get "name"}}'>
+        </div>
+        <div class="my-2 w-10/12">
+            {{with .FormErrors.reviewContent}}
+                <label class="error-label">{{.}}</label><br/>
+            {{end}}
+            <label for="review-content">Review:</label>
+            <textarea class="h-40" name="review-content">{{.FormData.Get "review-content"}}</textarea>
+        </div>
+            {{with .FormErrors.stars}}
+                <label class="error-label">{{.}}</label>
+            {{end}}
+        <div class="flex justify-center items-center star-rating">
+            <input name="stars" type="radio" id="5-stars" name="rating" value="5" onchange="updateStars(this)">
+            <label for="5-stars" class="star">★</label>
+
+            <input name="stars" type="radio" id="4-stars" name="rating" value="4" onchange="updateStars(this)">
+            <label for="4-stars" class="star">★</label>
+
+            <input name="stars" type="radio" id="3-stars" name="rating" value="3" onchange="updateStars(this)">
+            <label for="3-stars" class="star">★</label>
+
+            <input name="stars" type="radio" id="2-stars" name="rating" value="2" onchange="updateStars(this)">
+            <label for="2-stars" class="star">★</label>
+
+            <input name="stars" type="radio" id="1-stars" name="rating" value="1" onchange="updateStars(this)">
+            <label for="1-stars" class="star">★</label>
+        </div>
+        
+        <div class="flex justify-center items-center">
+            <button class="submit-button" type="submit" name="submit">Send Review</button>
+        </div>
+    </form>
+</div>
+{{ end }}

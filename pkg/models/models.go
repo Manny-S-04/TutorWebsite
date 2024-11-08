@@ -18,9 +18,8 @@ type Review struct{
     Stars string
 } 
 
-
 func (m *ReviewModel) Insert(name,content,stars string) (int, error) {
-    stmt := `INSERT INTO reviews (name,content,stars) 
+    stmt := `INSERT INTO user_reviews (name, content, stars) 
 		VALUES(?,?,?)`
 
 	result, err := m.DB.Exec(stmt, name, content, stars)
@@ -38,7 +37,7 @@ func (m *ReviewModel) Insert(name,content,stars string) (int, error) {
 func (m *ReviewModel) Get(id int) (*Review, error) {
     review := &Review{}
 
-	err := m.DB.QueryRow(`SELECT id, name, content, stars FROM reviews
+	err := m.DB.QueryRow(`SELECT id, name, content, stars FROM user_reviews
 	WHERE id = ?`, id).Scan(&review.ID, &review.Name, &review.Content, &review.Stars)
 
 	if err == sql.ErrNoRows {
@@ -49,8 +48,33 @@ func (m *ReviewModel) Get(id int) (*Review, error) {
 	return review, nil
 }
 
+func (m *ReviewModel) GetAll() ([]*Review, error){
+    stmt := `SELECT * FROM user_reviews ORDER BY stars DESC`
+    rows, err := m.DB.Query(stmt)
+    if err != nil{
+        return nil, err
+    }
+    defer rows.Close()
+
+    reviews := []*Review{}
+
+    for rows.Next(){
+        r := &Review{}
+        err = rows.Scan(&r.ID, &r.Name, &r.Content, &r.Stars)
+
+        if err != nil{
+            return nil, err
+        }
+        reviews = append(reviews, r)
+    }
+    if err = rows.Err(); err != nil{
+        return nil, err
+    }
+    return reviews, nil
+}
+
 func (m *ReviewModel) Latest() ([]*Review, error) {
-	stmt := `SELECT id, name, content, stars FROM reviews
+	stmt := `SELECT id, name, content, stars FROM user_reviews
 	ORDER BY id DESC`
 	rows, err := m.DB.Query(stmt)
 	if err != nil {

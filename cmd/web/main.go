@@ -26,9 +26,10 @@ type Config struct{
 }
 
 func main(){
-    
+       
 	addr := flag.String("addr", ":4000", "HTTP network address")
-	//dsn := flag.String("dsn", "web:q@tcp(localhost)/reviews?parseTime=true", "MySQL db")
+    // user:pass@tcp(ip)/tableName
+	dsn := flag.String("dsn", "web:pass@/reviews?parseTime=true", "MySQL db")
 
     flag.Parse()
 /*
@@ -40,19 +41,16 @@ func main(){
     defer file.Close()
 
     multiWriter := io.MultiWriter(os.Stdout, file)
-
 */
     infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
 
     errorLog := log.New(os.Stdout, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
 
-    /*
 	db, err := openDB(*dsn)
 	if err != nil {
 		errorLog.Fatal(err)
 	}
     defer db.Close()
-    */
 
     templateCache, err := newTemplateCache("./ui/html/")
     if err != nil{
@@ -62,6 +60,7 @@ func main(){
     app := &application{
         errorLog: errorLog,
         infoLog: infoLog,
+        reviews: &models.ReviewModel{DB: db},
         templateCache: templateCache,
     }
     
@@ -85,7 +84,7 @@ func main(){
 
 func openDB(dsn string) (*sql.DB, error) {
 	db, err := sql.Open("mysql", dsn)
-
+    
 	if err != nil {
 		return nil, err
 	}

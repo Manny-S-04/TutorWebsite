@@ -2,13 +2,14 @@ package main
 
 import (
 	"html/template"
+	"net/url"
 	"path/filepath"
-	"website/pkg/forms"
 	"website/pkg/models"
 )
 
 type templateData struct{
-    Form *forms.Form
+    FormData url.Values
+    FormErrors map[string]string
     Reviews []*models.Review
 }
 
