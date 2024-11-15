@@ -6,7 +6,10 @@ import (
 	"net/http"
 	"net/smtp"
 	"runtime/debug"
+    "embed"
 )
+
+var staticFiles embed.FS
 
 func (app *application) addDefaultData(td *templateData, _ *http.Request) *templateData  {
     if td == nil{
@@ -46,7 +49,7 @@ func (app *application) notFound(w http.ResponseWriter) {
 	app.clientError(w, http.StatusNotFound)
 }
 
-func (app *application) emailService(body [3]string){
+func (app *application) emailService(body [3]string) bool{
     name := body[0]
     review := body[1]
     stars := body[2]
@@ -65,11 +68,13 @@ func (app *application) emailService(body [3]string){
 
     if err != nil{
         app.errorLog.Fatal("SMTP failure", err)
-        return
+        return false
     }
+
+    return true
 }
 
-func (app *application) callbackService(body [2]string){
+func (app *application) callbackService(body [2]string) bool{
     name := body[0]
     message := body[1]
 
@@ -86,6 +91,8 @@ func (app *application) callbackService(body [2]string){
 
     if err != nil{
         app.errorLog.Fatal("SMTP failure", err)
-        return
+        return false
     }
+
+    return true
 }

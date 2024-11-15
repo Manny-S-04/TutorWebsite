@@ -8,10 +8,10 @@
 	<h1 class="flex flex-row justify-center text-6xl font-bold">Reviews</h1>
 </div>
 
-<div class="flex flex-col w-screen justify-center cardsection p-16 my-4">
+<div class="flex flex-col w-screen justify-center cardsection lg:p-16 my-4">
 	{{ range.Reviews }}
 	<div class="flex flex-col justify-center my-2">
-		<div class="mx-32">
+		<div class="mx-16 lg:mx-32">
 			{{ if eq .Stars "1" }}
 			<div class="text-xl">★☆☆☆☆</div>
 			{{ else }}{{ end }} {{ if eq .Stars "2" }}
@@ -32,6 +32,9 @@
 </div>
 <div class="flex-col justify-center items-center w-4/6 ">
     <form class="flex-col justify-center items-center custom-form" style="display:flex;" action='/reviews/create' method='POST'>
+        {{with .FormErrors.reviewSuccess}}
+            <h1 class="text-2xl">{{.}}</h1>
+        {{end}}
         <h1 class="text-2xl">Submit a review:</h1>
         <div class="my-2 w-10/12">
             {{with .FormErrors.name}}

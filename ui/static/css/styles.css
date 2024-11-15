@@ -157,28 +157,21 @@ body {
     }
 
 .custom-form{
-    background: var(--secondary);
+    background: var(--quaternary);
     color: var(--primary);
-    border: 1px solid var(--tertiary);
+    border: 1px solid var(--secondary);
     border-radius: 0.3rem;
     padding: 1rem;
 }
-.custom-form input{
-    background: var(--quaternary);
+.custom-form input, textarea{
+    background: var(--secondary);
     color: var(--primary);
-    border: 1px solid var(--quinary);
-    border-radius: 0.3rem;
-    width:100%;
-}
-.custom-form textarea{
-    background: var(--quaternary);
-    color: var(--primary);
-    border: 1px solid var(--quinary);
+    border: 1px solid var(--primary);
     border-radius: 0.3rem;
     width:100%;
 }
 .custom-form input:focus-visible{
-    border: 1px solid var(--tertiary);
+    border: 1px solid var(--secondary);
 }
 .submit-button {
   position: relative;

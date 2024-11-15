@@ -4,39 +4,39 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"sync"
+	"time"
 	"unicode/utf8"
 )
+var (
+    rateLimitMap = make(map[string]time.Time)
+    mutex sync.Mutex
+    rateLimit = 12 * time.Hour
+)
 
-func (app *application) home(w http.ResponseWriter, r *http.Request) {
-    app.render(w,r,"home.page.tmpl", &templateData{})
-}
+func isRateLimited(ip string) bool{
+    mutex.Lock()
+    defer mutex.Unlock()
 
-func (app *application) contactus(w http.ResponseWriter, r *http.Request){
-    app.render(w,r,"contactus.page.tmpl", &templateData{})
-}
-
-func (app *application) services(w http.ResponseWriter, r *http.Request){
-    app.render(w,r,"services.page.tmpl", &templateData{})
-}
-
-func (app *application) reviewsPage(w http.ResponseWriter, r *http.Request){
-    reviews, err  := app.reviews.GetAll()
-    if err != nil{
-        app.serverError(w,err)
+    lastRequestTime, exists := rateLimitMap[ip]
+    if exists && time.Since(lastRequestTime) < rateLimit{
+        return true
     }
-    app.render(w,r,"reviews.page.tmpl", &templateData{Reviews: reviews})
-}
 
-func (app *application) aboutus(w http.ResponseWriter, r *http.Request){
-    app.render(w,r,"aboutus.page.tmpl", &templateData{})
+    rateLimitMap[ip] = time.Now()
+    return false
 }
 
 func (app *application) requestCallBack(w http.ResponseWriter, r * http.Request){
-
     err := r.ParseForm()
     if err != nil{
         app.clientError(w, http.StatusBadRequest)
         return
+    }
+
+    ip := r.RemoteAddr
+    if isRateLimited(ip){
+        app.clientError(w, http.StatusTooManyRequests)
     }
 
     name := r.PostForm.Get("name")
@@ -63,11 +63,20 @@ func (app *application) requestCallBack(w http.ResponseWriter, r * http.Request)
         return
     }
     
+    errors = map[string]string{} // clearing errors in case there are any
+
     sendMessage := [2]string{name, message}
 
-    app.callbackService(sendMessage)
+    success := app.callbackService(sendMessage)
 
-    http.Redirect(w,r,"/contact-us", http.StatusSeeOther)
+    if(success){
+        app.infoLog.Print("success")
+        errors["success"] = "Thank you for reaching out we will reply as soon as possible."
+    }
+
+    app.render(w,r,"contactus.page.tmpl", &templateData{
+        FormErrors: errors,
+    })
 }
 
 func (app *application) createReview(w http.ResponseWriter, r * http.Request){
@@ -75,6 +84,11 @@ func (app *application) createReview(w http.ResponseWriter, r * http.Request){
     if err != nil{
         app.clientError(w, http.StatusBadRequest)
         return
+    }
+
+    ip := r.RemoteAddr
+    if isRateLimited(ip){
+        app.clientError(w, http.StatusTooManyRequests)
     }
 
     name := r.PostForm.Get("name")
@@ -118,7 +132,38 @@ func (app *application) createReview(w http.ResponseWriter, r * http.Request){
     
     sendReview := [3]string{name, reviewContent, stars}
 
-    app.emailService(sendReview)
+    success := app.emailService(sendReview)
 
-    http.Redirect(w,r,"/reviews", http.StatusSeeOther)
+    if(success){
+        errors["reviewSuccess"] = "Thank you for reviewing our services"
+    }
+
+    app.render(w,r,"reviews.page.tmpl", &templateData{
+        FormErrors: errors,
+    })
+}
+
+
+func (app *application) home(w http.ResponseWriter, r *http.Request) {
+    app.render(w,r,"home.page.tmpl", &templateData{})
+}
+
+func (app *application) contactus(w http.ResponseWriter, r *http.Request){
+    app.render(w,r,"contactus.page.tmpl", &templateData{})
+}
+
+func (app *application) services(w http.ResponseWriter, r *http.Request){
+    app.render(w,r,"services.page.tmpl", &templateData{})
+}
+
+func (app *application) reviewsPage(w http.ResponseWriter, r *http.Request){
+    reviews, err  := app.reviews.GetAll()
+    if err != nil{
+        app.serverError(w,err)
+    }
+    app.render(w,r,"reviews.page.tmpl", &templateData{Reviews: reviews})
+}
+
+func (app *application) aboutus(w http.ResponseWriter, r *http.Request){
+    app.render(w,r,"aboutus.page.tmpl", &templateData{})
 }

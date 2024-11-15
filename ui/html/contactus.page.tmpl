@@ -9,8 +9,11 @@
 </div>
 
 <div
-	class="flex flex-col h-fit p-16 items-center justify-content cardsection w-screen">
-    <form class="flex-col justify-center items-center custom-form w-8/12" style="display:flex;" action='/contactus' method='POST'>
+	class="flex flex-col h-fit py-16 lg:p-16 items-center justify-content w-screen">
+    <form class="flex-col justify-center items-center custom-form w-8/12" style="display:flex;" action='/contact-us/create' method='POST'>
+        {{with .FormErrors.success}}
+            <h1 class="text-2xl">{{.}}</h1>
+        {{end}}
         <h1 class="text-2xl">Request a callback:</h1>
         <div class="my-2 w-10/12">
             {{with .FormErrors.name}}
@@ -23,8 +26,8 @@
             {{with .FormErrors.message}}
                 <label class="error-label">{{.}}</label><br/>
             {{end}}
-            <label for="review-content">Message:</label>
-            <textarea class="h-40" name="review-content">{{.FormData.Get "message"}}</textarea>
+            <label for="message">Message:</label>
+            <textarea class="h-40" name="message">{{.FormData.Get "message"}}</textarea>
         </div>
         <div class="flex justify-center items-center">
             <button class="submit-button" type="submit" name="submit">Send Message</button>

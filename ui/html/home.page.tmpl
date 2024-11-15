@@ -4,11 +4,65 @@
 
 {{define "body"}}
 
-<div style="border:1px solid black; height:30%; width:100%; display: grid; grid-template-columns: 10% 40% 40% 10%;">
-    <div style="grid-column:2;">
-        <h1 class="text-4xl">Tailored tutoring for rapid results</h1>
+<div class="flex flex-col gap-4 items-center mx-8 lg:grid lg:grid-cols-[10%_38%_4%_38%_10%] w-full h-96 lg:h-80 mb-4 md:mb-32">
+    <div style="grid-column:2; height:inherit;">
+        <h1 class="text-4xl font-semibold my-4 mb-8 lg:text-6xl underline">Tailored tutoring for rapid results</h1>
+        <p class="text-lg lg:text-xl">Join our growing list of satisfied students now, with 
+            an outstanding track record over 300 successful lessons taught and an average
+            rating of 4.9 stars. 
+            Are you ready to improve your academic performance?
+        </p>
     </div>
-    <div style="grid-column:3;">Pic</div>
+    <img src="/static/images/student.jpg" style="grid-column:4; height:auto;"></img>
+</div>
+<div class="flex flex-col justify-center items-center content-evenly w-screen h-auto mt-48 lg:mt-8 p-8" style="background:var(--quaternary); color:white;">
+    <div class="contents">
+        <h1 class="text-2xl font-bold mb-4">Initial Consultation</h1>
+        <p>Book a meeting with a tutor to find out how we can help.</p>
+    </div>
+    <div class="mx-8 lg:mx-8" style="width:70%; background:white; height:1px; margin: 1rem 0rem;"></div>
+    <div class="contents">
+        <h1 class="text-2xl font-bold mb-4">300+ satisfied students</h1>
+        <p>Book an initial lesson with a tutor at a convenient time for you.</p>
+    </div>
+    <div class="mx-8 lg:mx-8" style="width:70%; background:white; height:1px; margin: 1rem 0rem;"></div>
+    <div class="contents">
+        <h1 class="text-2xl font-bold mb-4">Commitment</h1>
+        <p>If you are satisfied, we can book a flexible time slot every week.</p>
+    </div>
+</div>
+
+<div class="flex flex-col gap-4 items-center mx-8 lg:grid lg:grid-cols-[10%_38%_4%_38%_10%] w-full h-96 lg:h-80">
+    <section class="text-3xl font-bold underline mt-8 p-8" style="grid-column:2;">How can our services help you?</section>
+    <div class="flex flex-col w-full justify-evenly items-center " style="grid-column:4;">
+        <div class="card w-full">
+            <p>
+                Academic success is not about memorizing facts...
+                It’s about unlocking each
+                student's full potential. We work closely with our students to
+                identify their individual learning needs, helping them not only 
+                grasp the material but also develop a deeper understanding and confidence in their
+                abilities.
+            </p>
+        </div>
+        <div class="card w-full">
+            <p>
+                Our approach to tutoring goes beyond simply improving grades.
+                We focus on building long-term academic resilience,
+                providing students with the tools they need to tackle new 
+                challenges both in and out of the classroom.
+            </p>
+        </div>
+        <div class="card w-full">
+            <p>
+                We also recognize that academic performance is influenced
+                by a variety of factors, including emotional well-being and
+                external commitments. That’s why we take a holistic approach to 
+                tutoring, offering a supportive environment that prioritizes mental
+                well-being alongside academic progress.
+            </p>
+        </div>
+    </div>
 </div>
 
 {{ end }}
