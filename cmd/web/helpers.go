@@ -6,10 +6,21 @@ import (
 	"net/http"
 	"net/smtp"
 	"runtime/debug"
-    "embed"
+	"strings"
+    _ "embed"
 )
 
-var staticFiles embed.FS
+//go:embed .env
+var env string
+
+func (app *application) getEnv () [2]string{
+    lines := strings.Split(env, "\n")
+    var envVars [2]string
+    envVars[0] = lines[0] 
+    envVars[1] = lines[1]
+
+	return envVars
+}
 
 func (app *application) addDefaultData(td *templateData, _ *http.Request) *templateData  {
     if td == nil{
@@ -54,9 +65,15 @@ func (app *application) emailService(body [3]string) bool{
     review := body[1]
     stars := body[2]
 
-    from := "mannybqckup@gmail.com"
-    pass := "azew syaq goxr kwnk"
-    to := "mannybqckup@gmail.com"
+    var envVars [2]string = app.getEnv()
+
+    splitEmail := strings.Split(envVars[0], "=")
+    email := splitEmail[1]
+    splitPass := strings.Split(envVars[1], "=")
+
+    from := email
+    pass := splitPass[1]
+    to := email
 
     msg := "\n" +
     "Subject: New Review" + "\n" +
@@ -78,9 +95,15 @@ func (app *application) callbackService(body [2]string) bool{
     name := body[0]
     message := body[1]
 
-    from := "mannybqckup@gmail.com"
-    pass := "azew syaq goxr kwnk"
-    to := "mannybqckup@gmail.com"
+    var envVars [2]string = app.getEnv()
+
+    splitEmail := strings.Split(envVars[0], "=")
+    email := splitEmail[1]
+    splitPass := strings.Split(envVars[1], "=")
+
+    from := email
+    pass := splitPass[1]
+    to := email
 
     msg := "\n" +
     "Subject: New Message" + "\n" +

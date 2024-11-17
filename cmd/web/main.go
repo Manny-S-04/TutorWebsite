@@ -1,7 +1,6 @@
 package main
 
 import (
-	"crypto/tls"
 	"database/sql"
 	"flag"
 	"html/template"
@@ -22,7 +21,7 @@ type application struct {
 
 type Config struct{
     Addr string
-    StaticDir string
+  StaticDir string
 }
 
 func main(){
@@ -64,20 +63,23 @@ func main(){
         templateCache: templateCache,
     }
     
+    /*
     tlsConfig := &tls.Config{
         PreferServerCipherSuites: true,
         CurvePreferences: []tls.CurveID{tls.X25519, tls.CurveP256},
     }
+    */
 
 	srv := &http.Server{
 		Addr:     *addr,
 		ErrorLog: errorLog,
 		Handler:  app.routes(),
-        TLSConfig: tlsConfig,
+        //TLSConfig: tlsConfig,
 	}
 
     infoLog.Printf("Starting server on %s", *addr)
-    err = srv.ListenAndServeTLS("./tls/cert.pem","./tls/key.pem")
+    err = srv.ListenAndServe()
+    //err = srv.ListenAndServeTLS("./tls/cert.pem","./tls/key.pem")
     errorLog.Fatal(err)
 }   
 

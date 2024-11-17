@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"html/template"
 	"io/fs"
 	"net/url"
@@ -20,36 +19,57 @@ type templateData struct{
 func newTemplateCache() (map[string]*template.Template, error) {
     embeddedHTML := getEmbedded.GetEmbeddedHTML()
 
-    fmt.Println(embeddedHTML)
-
-	cache := map[string]*template.Template{}
+    cache := map[string]*template.Template{}
 
     pages, err := fs.Glob(embeddedHTML, "html/*.page.tmpl")
-	if err != nil {
-		return nil, err
-	}
-    
-    fmt.Println(pages)
+    if err != nil {
+        return nil, err
+    }
 
-	for _, page := range pages {
-		name := filepath.Base(page)
-        fmt.Println(name)
+    layouts, err := fs.Glob(embeddedHTML, "html/*.layout.tmpl")
+    if err != nil {
+        return nil, err
+    }
 
-        ts, err := template.New(name).ParseFS(embeddedHTML, "html/" +name)
-        if err != nil{
+    partials, err := fs.Glob(embeddedHTML, "html/*.partial.tmpl")
+    if err != nil {
+        return nil, err
+    }
+
+    for _, layout := range layouts {
+        name := filepath.Base(layout)
+
+        ts, err := template.New(name).ParseFS(embeddedHTML, "html/"+name)
+        if err != nil {
             return nil, err
         }
-        ts, err = template.New(name).ParseFS(embeddedHTML, "html/*.layout.tmpl")
-        if err != nil{
-            return nil, err
-        }
-        ts, err = template.New(name).ParseFS(embeddedHTML, "html/*.partial.tmpl")
-        if err != nil{
+
+        cache[name] = ts
+    }
+
+    for _, page := range pages {
+        name := filepath.Base(page)
+        ts, err := template.New(name).ParseFS(embeddedHTML, "html/"+name)
+        if err != nil {
             return nil, err
         }
 
+        for _, layout := range layouts {
+            _, err := ts.ParseFS(embeddedHTML, layout)
+            if err != nil {
+                return nil, err
+            }
+        }
 
-		cache[name] = ts
-	}
-	return cache, nil
+        for _, partial := range partials {
+            _, err := ts.ParseFS(embeddedHTML, partial)
+            if err != nil {
+                return nil, err
+            }
+        }
+
+        cache[name] = ts
+    }
+
+    return cache, nil
 }
