@@ -1,7 +1,10 @@
 package main
 
 import (
+	"io/fs"
 	"net/http"
+	getEmbedded "website/ui"
+
 	"github.com/bmizerany/pat"
 	"github.com/justinas/alice"
 )
@@ -26,9 +29,16 @@ func (app *application) routes() http.Handler{
     mux.Get("/reviews/", http.HandlerFunc(app.reviewsPage))
     mux.Post("/reviews/create", http.HandlerFunc(app.createReview))
     mux.Post("/reviews/create/", http.HandlerFunc(app.createReview)) 
- 
-    fileServer := http.FileServer(http.Dir("./ui/static/"))
-    mux.Get("/static/", http.StripPrefix("/static",fileServer))
+
+    assets, err := fs.Sub(getEmbedded.GetEmbeddedStatic(), "static")
+    if err != nil{
+        app.errorLog.Println(err)
+    }
+    fileServer := http.FileServer(http.FS(assets))
+
+    //fileServer := http.FileServer(http.Dir("./ui/static/"))
+    //fileServer := http.FileServerFS(staticDir)
+    mux.Get("/static/", http.StripPrefix("/static/", fileServer))
  
     return standardMiddleware.Then(mux)
 }
