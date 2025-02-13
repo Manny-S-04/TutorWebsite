@@ -1,0 +1,17 @@
+
+INSERT INTO reviews (name, body, stars) VALUES
+('Laura', 'Brilliant lesson. Tom felt so much more confident after his lesson.', 5),
+('Evelina', 'Great teaching techniques, the explanations are well structured and clear. Mansimran knows to work with children and to make them attentive and attracted to the subject. Thank you for teaching my daughter.', 5),
+('Reena', 'My son has been tutoring with Mansimran for a month or so and I have really seen an improvement in his understanding for GCSE Maths. The teaching technique he uses with my son is really good and works for my son. I would very much recommend him.', 5),
+('Tina', 'Thank you Mansimran for being so thorough.', 5),
+('Nicola', 'Mansimran was patient and considerate to my son’s needs. He moved at a pace that worked best, and ensured my son understood each step before moving on. He encouraged my son to vocalise anything he didn’t understand. Both my son and I were very happy with the first lesson.', 5),
+('Tulay', 'He helped my daughter to improve from grade 4 to 7 at GCSE. He knows his subject well and teaches it well. Keep up the good work! Thank you and bless you.', 5),
+('Lyndsey', 'Helps a lot and is a great tutor.', 5),
+('Sara', 'Really good at breaking down questions for you to understand.', 5),
+('Sudichha', 'Thank you for helping my son.', 5),
+('Binumol', 'Superb A-Level knowledge, thank you.', 5),
+('Ana', 'I am very grateful for Mansimran’s help. He explained concepts in a way I could easily grasp, making my learning much more effective.', 5),
+('Sonya', 'The lessons with Mansimran are very engaging. He makes difficult topics seem easy to understand, and I appreciate his patience.', 4.5),
+('Michelle', 'Mansimran’s teaching style is very clear and straightforward, which makes learning a lot easier. Highly recommend!', 5),
+('Grace-Dilara', 'Thank you for your patience and dedication to helping me improve my understanding. The lessons are very enjoyable.', 5),
+('Keeta', 'Mansimran’s lessons are always insightful and he provides great explanations for complex topics. A wonderful tutor!', 5);

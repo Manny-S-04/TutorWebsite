@@ -1,0 +1,281 @@
+:root {
+  --primary: #758467;
+  --primaryAlt: #819171;
+  --secondary: #9caf88;
+  --secondaryAlt: #cbd5c0;
+  --accent: #dfe6da;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  background-color: var(--secondaryAlt);
+  overflow-x: hidden;
+}
+
+main {
+  width: 100%;
+}
+
+header {
+  margin-bottom: -1px;
+}
+
+h1 {
+  margin: 0;
+}
+
+.header {
+  position: relative;
+  background-color: var(--primary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header .a-container {
+  margin-right: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.header a {
+  color: var(--secondaryAlt);
+  text-decoration: none;
+}
+
+.mobile-header {
+  position: relative;
+  background-color: var(--primary);
+}
+
+.mobile-header button {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+.accordian-button {
+  border: 0px;
+  background-color: transparent;
+}
+
+.overflow-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  background-color: var(--primaryAlt);
+  transition: all 0.4s cubic-bezier(0.4, 0.02, 0.2, 1);
+}
+
+.overflow-container a {
+  text-decoration: none;
+  color: var(--secondaryAlt);
+  font-size: 1.5rem;
+}
+
+.section-prim {
+  width: 100%;
+  height: auto;
+  background-color: var(--primary);
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.section-prim h1 {
+  color: var(--secondaryAlt);
+}
+
+.section-prim h1 span {
+  color: var(--secondary);
+}
+
+.section-prim p {
+  color: var(--secondaryAlt);
+  line-height: 1.5rem;
+}
+
+.section-alt {
+  width: 100%;
+  height: auto;
+  background-color: var(--secondaryAlt);
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.section-alt h1 {
+  color: var(--primaryAlt);
+}
+
+.section-alt a {
+  text-decoration: none;
+  border-bottom: 1px dashed var(--primaryAlt);
+  color: var(--primary);
+}
+
+.section-alt p {
+  line-height: 1.5rem;
+}
+
+/*change based on size*/
+.card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.card {
+  height: auto;
+  border-radius: 1rem;
+  background-color: var(--secondary);
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.card h2 {
+  color: var(--accent);
+}
+
+.card p {
+  color: var(--secondaryAlt);
+}
+
+.contact-button {
+  margin-top: 1rem;
+  text-decoration: none;
+  border-radius: 1rem;
+  height: 2rem;
+  width: 5rem;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+}
+
+.reviews-container {
+  background-color: var(--secondaryAlt);
+  padding: 1rem;
+  gap: 1rem;
+  height: auto;
+}
+
+.reviews-container li {
+  list-style-type: none;
+}
+
+.reviews-container h1 {
+  color: var(--primary);
+}
+
+.review {
+  background-color: var(--secondary);
+  border-radius: 1rem;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.review h3 {
+  color: var(--accent);
+}
+
+.review p {
+  color: var(--secondaryAlt);
+}
+
+.form-container {
+  background-color: var(--primaryAlt);
+  border-radius: 1rem;
+  position: relative;
+}
+
+.form-container h2 {
+  color: var(--accent);
+}
+
+.form-container label {
+  color: var(--accent);
+  display: block;
+  margin: 5px 0px;
+}
+
+.form-container input {
+  border-radius: 1rem;
+  border: 0px;
+  min-height: 2rem;
+  padding-left: 1rem;
+  background-color: var(--secondaryAlt);
+  box-sizing: border-box;
+}
+
+.form-container input:focus {
+  outline-offset: 0px;
+  outline-width: 1px;
+  outline-color: var(--primaryAlt);
+  background-color: var(--secondary);
+}
+
+.form-container textarea {
+  border-radius: 1rem;
+  border: 0px;
+  background-color: var(--secondaryAlt);
+  resize: vertical;
+  box-sizing: border-box;
+  padding: 0.2rem 1rem;
+}
+
+.form-container textarea:focus {
+  outline-offset: 0px;
+  outline-width: 1px;
+  outline-color: var(--primaryAlt);
+  background-color: var(--secondary);
+}
+
+.submit-button {
+  background-color: var(--accent);
+  border: 0px;
+  border-radius: 1rem;
+  height: 2rem;
+  width: 6rem;
+  margin-bottom: 1rem;
+}
+
+.submit-button:hover {
+  background-color: var(--secondaryAlt);
+}
+
+.submit-button:active {
+  transform: scale(0.9);
+  transition: all 0.3s ease-in-out;
+}
+
+.star-rating {
+  direction: rtl;
+  display: inline-flex;
+}
+
+.star {
+  font-size: 2rem;
+  color: grey;
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+input:checked ~ label.star,
+label.star:hover,
+label.star:hover ~ label.star {
+  transform: scale(1.2);
+  color: gold;
+}
