@@ -6,7 +6,7 @@ import (
 	"net/smtp"
 	"os"
 	"strings"
-	"tutor/models"
+	"tutor/cmd/models"
 
 	"github.com/labstack/echo/v4"
 	_ "github.com/tursodatabase/libsql-client-go/libsql"
@@ -17,8 +17,8 @@ type DB struct {
 }
 
 func ConnectDatabase(e *echo.Echo) DB {
-	var DbUrl = os.Getenv("DB_URL")
-	var DbAuthToken = os.Getenv("DB_AUTH")
+	var DbUrl = strings.TrimSpace(os.Getenv("DB_URL"))
+	var DbAuthToken = strings.TrimSpace(os.Getenv("DB_AUTH"))
 
 	url := fmt.Sprintf("%s?authToken=%s", DbUrl, DbAuthToken)
 

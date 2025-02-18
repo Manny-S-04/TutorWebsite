@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"regexp"
 	"strconv"
-	"tutor/models"
-	"tutor/views"
-	"tutor/views/pages"
+    "tutor/cmd/views"
+	views "tutor/cmd/views/pages"
+	"tutor/cmd/models"
 
 	"github.com/labstack/echo/v4"
 )
@@ -16,6 +16,7 @@ var cachedReviews []models.Review
 
 func RegisterHandlers(e *echo.Echo, db DB) {
 	fs, _ := embed.GetStaticDirFS()
+
 	e.StaticFS("/static", fs)
 	HomePage(e)
 	ServicesPage(e)

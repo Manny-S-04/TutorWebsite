@@ -1,0 +1,32 @@
+package views
+
+templ ContactUs(){
+
+<div class="section-alt card-container full-width full-height">
+    <form id="form" x-data="{ nameinput : $refs.nameinput}" class="flex column align-center full-width form-container"
+        hx-post="/contact-us" hx-target="form" hx-swap="outerHTML">
+        <h2>Request a callback</h2>
+        <label :style="{ 'width': nameinput.offsetWidth + 'px'}" for="name">Name</label>
+        <input x-ref="nameinput" type="text" name="name" value="">
+        <label :style="{ 'width': nameinput.offsetWidth + 'px'}" for="number">Number</label>
+        <input x-ref="nameinput" type="text" name="number" value="">
+        <label :style="{ 'width': nameinput.offsetWidth + 'px'}" for="body">Message</label>
+        <textarea :style="{ 'width': nameinput.offsetWidth + 'px', 'min-height': '4rem', 'margin-bottom': '1rem' }"
+            type="text" name="body" value=""></textarea>
+        <button class="submit-button" type="submit">Submit</button>
+    </form>
+</div>
+<div class="section-alt card-container full-width">
+    <div class="card-alt full-width">
+        <h2>Contact Details</h2>
+        <span>
+        Email : mansimran2001@googlemail.com
+        </span>
+        <br/>
+        <br/>
+        <span>
+        Phone Number : 07495400251
+        </span>
+    </div>
+</div>
+}
